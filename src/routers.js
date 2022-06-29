@@ -10,8 +10,12 @@ const Stack = createNativeStackNavigator();
 function Routes() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Home" component={Home}></Stack.Screen>
-            <Stack.Screen name="Datail" component={Detail}></Stack.Screen>
+            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }}></Stack.Screen>
+            <Stack.Screen
+                name="Datail"
+                component={Detail}
+                options={{ title: "Detalhes", headerTintColor: "#fff", headerStyle: { backgroundColor: "#232630" } }}
+            ></Stack.Screen>
             <Stack.Screen name="Category" component={CategoryPosts}></Stack.Screen>
             <Stack.Screen name="Search" component={Search}></Stack.Screen>
         </Stack.Navigator>
