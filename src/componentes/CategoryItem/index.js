@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native-web";
 
 import { useNavigation } from "@react-navigation/native";
 
-export function CategoryItem({ data }) {
+export function CategoryItem({ data, favorite }) {
     const navigation = useNavigation();
 
     function handleNavigate() {
@@ -12,7 +12,7 @@ export function CategoryItem({ data }) {
     }
 
     return (
-        <TouchableOpacity style={styles.container} activeOpacity={0.9} onPress={handleNavigate}>
+        <TouchableOpacity style={styles.container} activeOpacity={0.9} onPress={handleNavigate} onLongPress={favorite}>
             <Image
                 style={styles.icon}
                 source={{ url: `http://192.168.91.36:1337${data?.attibutes?.icon?.data?.attributes?.url}` }}
