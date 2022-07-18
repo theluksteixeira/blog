@@ -6,7 +6,7 @@ import { Feather } from "@expo/vector-icons";
 import api from "../../services/api";
 import { CategoryItem } from "../../componentes/CategoryItem";
 import { getFavorite, setFavorite } from "../../services/favorite";
-import { FavoritePost } from "../../componentes/FavoritePost";
+import FavoritePost from "../../componentes/FavoritePost";
 
 export default function Home() {
     const navigation = useNavigation();
@@ -15,11 +15,14 @@ export default function Home() {
 
     useEffect(() => {
         async function loadData() {
-            console.log("aaaaagggg");
-            const category = await api.get("/api/categories?populate=icon");
-            console.log("2222");
-            console.log(category);
-            setCategories(category.data.data);
+            try {
+                console.log("aaaaagggg");
+                const category = await api.get("api/categories?populate=icon");
+                console.log(category.data.data);
+                setCategories(category.data.data);
+            } catch (error) {
+                console.log(error);
+            }
         }
         loadData();
     }, []);
@@ -34,7 +37,7 @@ export default function Home() {
 
     async function handleFavorite(id) {
         const response = await setFavorite(id);
-
+        setFavCategory(response);
         alert("Categoria favoritada");
     }
 
@@ -62,6 +65,7 @@ export default function Home() {
                 {favCategory.length !== 0 && (
                     <FlatList
                         style={{ marginTop: 50, maxHeight: 100, paddingStart: 18 }}
+                        contentContainerStyle={{ paddingEnd: 18 }}
                         data={favCategory}
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
@@ -69,6 +73,8 @@ export default function Home() {
                         renderItem={({ item }) => <FavoritePost data={item}></FavoritePost>}
                     ></FlatList>
                 )}
+
+                <Text style={[styles.title, { marginTop: favCategory.length > 0 ? 14 : 46 }]}> Conteúdo em alta</Text>
             </View>
         </SafeAreaView>
     );
@@ -98,5 +104,17 @@ const styles = StyleSheet.create({
         marginHorizontal: 18,
         borderRadius: 8,
         zIndex: 9,
+    },
+    main: {
+        backgroundColor: "#fff",
+        flex: 1,
+        marginTop: -30,
+    },
+    title: {
+        fontSize: 21,
+        paddingHorizontal: 18,
+        marginBottom: 14,
+        fontWeight: "bold",
+        color: "#162133",
     },
 });
