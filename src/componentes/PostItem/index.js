@@ -1,13 +1,20 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 
 export default function PostItem({ data }) {
+    const navigation = useNavigation();
+
+    function handleDetails() {
+        navigation.navigate("Detail", { id: data?.id });
+    }
+    
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={handleDetails}>
             <View style={styles.header}>
                 <Image
                     style={styles.cover}
-                    source={{ uri: `http://172.18.116.0:1337${data?.attributes?.cover?.data?.attributes?.url}` }}
+                    source={{ uri: `http://172.28.234.98:1337${data?.attributes?.cover?.data?.attributes?.url}` }}
                 ></Image>
             </View>
 
@@ -42,15 +49,15 @@ const styles = StyleSheet.create({
         borderRadius: 4,
     },
     body: {
-        width: '70%',
+        width: "70%",
     },
-    title:{
-        fontWeight: 'bold',
+    title: {
+        fontWeight: "bold",
         fontSize: 14,
-        marginBottom: 4
+        marginBottom: 4,
     },
     description: {
         fontSize: 12,
-        lineHeight: 16
-    }
+        lineHeight: 16,
+    },
 });

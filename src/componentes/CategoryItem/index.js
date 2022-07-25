@@ -15,7 +15,7 @@ export function CategoryItem({ data, favorite }) {
         <TouchableOpacity style={styles.container} activeOpacity={0.9} onPress={handleNavigate} onLongPress={favorite}>
             <Image
                 style={styles.icon}
-                source={{ uri: `http://172.18.116.0:1337${data?.attributes?.icon?.data?.attributes?.url}` }}
+                source={{ uri: `http://172.28.234.98:1337${data?.attributes?.icon?.data?.attributes?.url}` }}
             ></Image>
 
             <Text style={styles.name}>{data?.attributes?.name}</Text>
